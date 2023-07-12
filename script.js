@@ -84,43 +84,53 @@ function clearStatusClass(element) {
 
 const questions = [
     {
-        question: 'What is 2 + 2?',
+        question: 'Inside which HTML element do we put the JavaScript?',
         answers: [
-            { text: '4', correct: true },
-            { text: '2', correct: false }
+            { text: '<script>', correct: true },
+            { text: '<scripting>', correct: false },
+            { text: '<javascript>', correct: false },
+            { text: '<js>', correct: false }
         ],
-        // correctAnswer: '4'
+       
     },
     {
-        question: 'What is 2 + 2?',
+        question: 'Where is the correct place to insert a JavaScript file?',
         answers: [
-            { text: '4', correct: true },
-            { text: '2', correct: false }
+            { text: 'Both the <head> section and the <body> section are correct', correct: true },
+            { text: 'The <head> section', correct: false },
+            { text: 'The <body> section', correct: false },
+            { text: "You don't have to link your file", correct: false }
         ],
-        // correctAnswer: '4'
+       
     },
     {
-        question: 'What is 2 + 2?',
+        question: 'How do you create a function in JavaScript?',
         answers: [
-            { text: '4', correct: true },
-            { text: '2', correct: false }
+            { text: 'function myFunction() ', correct: true },
+            { text: 'function:myFunction()', correct: false },
+            { text: 'function = myFunction()', correct: false },
+            { text: 'myFunction() = function', correct: false }
         ],
-        // correctAnswer: '4'
+
     },
     {
-        question: 'What is 2 + 2?',
+        question: 'How to write an IF statement for executing some code if "i" is NOT equal to 5?',
         answers: [
-            { text: '4', correct: true },
-            { text: '2', correct: false }
+            { text: 'if (i != 5)', correct: true },
+            { text: 'if i <> 5', correct: false },
+            { text: 'if i =! 5 then', correct: false },
+            { text: 'if (i <> 5)', correct: false }
         ],
-        // correctAnswer: '4'
+    
     },
     {
-        question: 'What is 2 + 2?',
+        question: 'What is the correct way to write a JavaScript array?',
         answers: [
-            { text: '4', correct: true },
-            { text: '2', correct: false }
+            { text: 'var colors = ["red", "green", "blue"]', correct: true },
+            { text: 'var colors = "red", "green", "blue"', correct: false },
+            { text: 'var colors = (1:"red", 2:"green", 3:"blue")', correct: false },
+            { text: 'var colors = 1 = ("red"), 2 = ("green"), 3 = ("blue")', correct: false }
         ],
-        // correctAnswer: '4'
+    
     }
 ]
