@@ -23,3 +23,5 @@ THEN I can save my initials and score
 [youtube](https://www.youtube.com/watch?v=riDzcEQbX6k&t=910s)
 [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/grid)
 [javascript.info](https://javascript.info/introduction-browser-events)
+[youtube](https://www.youtube.com/watch?v=4piMZDO5IOI&list=WL&index=35&t=20s)
+[w3 schools](https://www.w3schools.com/jsref/jsref_push.asp)
