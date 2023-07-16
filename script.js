@@ -8,79 +8,19 @@ const questionElement = document.getElementById('question')
 
 const answerButtonsElement = document.getElementById('answer-buttons')
 
-let shuffledQuestions, currentQuestionIndex
+const timerEl = document.getElementById('js-timer');
 
-startButton.addEventListener('click', startGame)
+const endPage = document.getElementById('end-page')
 
-nextButton.addEventListener('click', () => {
-    currentQuestionIndex++
-    setNextQuestion()
-})
+const initials = document.getElementById('initials')
 
-function startGame() {
-    startButton.classList.add('hide')
-    shuffledQuestions = questions.sort(() => Math.random() - .5)
-    currentQuestionIndex = 0
-    questionContainerElement.classList.remove('hide')
-    setNextQuestion()
-}
+const submit = document.getElementById('submit')
 
-function setNextQuestion() {
-    resetState()
-    showQuestion(shuffledQuestions[currentQuestionIndex])
+const gameOver = document.getElementById('game-over')
 
-}
+const retryButton = document.getElementById('retry')
 
-function showQuestion(question) {
-    questionElement.innerText = question.question
-    question.answers.forEach(answer => {
-        const button = document.createElement('button')
-        button.innerText = answer.text
-        button.classList.add('btn')
-        if (answer.correct) {
-            button.dataset.correct = answer.correct
-        }
-        button.addEventListener('click', selectAnswer)
-        answerButtonsElement.appendChild(button)
-    })
-}
-
-function resetState() {
-    clearStatusClass(document.body)
-    nextButton.classList.add('hide')
-    while (answerButtonsElement.firstChild) {
-        answerButtonsElement.removeChild(answerButtonsElement.firstChild)
-    }
-}
-
-function selectAnswer(e) {
-    const selectedButton = e.target
-    const correct = selectedButton.dataset.correct
-    setStatusClass(document.body, correct)
-    Array.from(answerButtonsElement.children).forEach(button => {
-        setStatusClass(button, button.dataset.correct)
-    })
-    if (shuffledQuestions.length > currentQuestionIndex + 1) {
-        nextButton.classList.remove('hide')
-    } else {
-        startButton.innerText = 'Restart'
-        startButton.classList.remove('hide')
-    }
-}
-
-function setStatusClass(element, correct) {
-    clearStatusClass(element)
-    if (correct) {
-        element.classList.add('correct')
-    } else {
-        element.classList.add('wrong')
-    }
-}
-
-function clearStatusClass(element) {
-    element.classList.remove('correct')
-    element.classList.remove('wrong')
-}
+const scoreButton = document.getElementById('scores-btn')
 
 const questions = [
     {
@@ -134,3 +74,123 @@ const questions = [
     
     }
 ]
+
+let timeLeft = 75;
+
+let shuffledQuestions, currentQuestionIndex, timeInterval
+
+startButton.addEventListener('click', startGame)
+
+nextButton.addEventListener('click', () => {
+    currentQuestionIndex++
+    setNextQuestion()
+})
+
+submit.addEventListener('click', saveScores)
+
+function countdown() {
+    timeInterval = setInterval(function () {
+        console.log(timeLeft)
+        if (timeLeft > 1) {
+            timerEl.textContent = timeLeft + ' seconds remaining';
+            timeLeft--;
+        } else if (timeLeft === 1) {
+            timerEl.textContent = timeLeft + ' second remaining';
+            timeLeft--;
+        } else {
+        //    saveScores() (
+        //     clearInterval(countdown)
+        //    ) 
+        //     trying to stop clock when quiz is over
+            
+        }    //else {
+            //timerEl.textContent = '';
+            //clearInterval(timeInterval);
+        //}
+        //  this stops clock when timer reaches 0
+    }, 1000); 
+}
+
+document.getElementById('wrong').addEventListener('click', function(){
+    sec -= 5;
+    // timerEl.innerHTML="00:"+sec;
+});
+
+
+function startGame() {
+    startButton.classList.add('hide')
+    shuffledQuestions = questions.sort(() => Math.random() - .5)
+    currentQuestionIndex = 0
+    questionContainerElement.classList.remove('hide')
+    setNextQuestion()
+    countdown()
+}
+
+function setNextQuestion() {
+    resetState()
+    showQuestion(shuffledQuestions[currentQuestionIndex])
+
+}
+
+function showQuestion(question) {
+    questionElement.innerText = question.question
+    question.answers.forEach(answer => {
+        const button = document.createElement('button')
+        button.innerText = answer.text
+        button.classList.add('btn')
+        if (answer.correct) {
+            button.dataset.correct = answer.correct
+        }
+        button.addEventListener('click', selectAnswer)
+        answerButtonsElement.appendChild(button)
+    })
+}
+
+function resetState() {
+    clearStatusClass(document.body)
+    nextButton.classList.add('hide')
+    while (answerButtonsElement.firstChild) {
+        answerButtonsElement.removeChild(answerButtonsElement.firstChild)
+    }
+}
+
+function selectAnswer(e) {
+    const selectedButton = e.target
+    const correct = selectedButton.dataset.correct
+    setStatusClass(document.body, correct)
+    Array.from(answerButtonsElement.children).forEach(button => {
+        setStatusClass(button, button.dataset.correct)
+    })
+
+    
+    if (shuffledQuestions.length > currentQuestionIndex + 1) {
+        nextButton.classList.remove('hide')
+    } else {
+            questionContainerElement.classList.add('hide')
+            endPage.classList.remove('hide')
+            timerEl
+    }
+}
+
+function setStatusClass(element, correct) {
+    clearStatusClass(element)
+    if (correct) {
+        element.classList.add('correct')
+    } else {
+        element.classList.add('wrong')
+    }
+}
+
+function clearStatusClass(element) {
+    element.classList.remove('correct')
+    element.classList.remove('wrong')
+}
+
+function saveScores() {
+    const userInitials = initials.value
+    //  const initialList = document.querySelector('ul')
+    const highScores = JSON.parse (localStorage.getItem('Highscores')) || []
+    highScores.push({initials: userInitials, score: timeLeft})
+    localStorage.setItem('Highscores', JSON.stringify(highScores))
+    console.log(userInitials);
+}

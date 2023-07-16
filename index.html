@@ -10,23 +10,41 @@
 </head>
 
 <body>
+    
+    <div id="js-timer">
+        <div id="timer">
+            75
+        </div>
+    </div>
+
     <main class="container">
         <div id="questions-container" class="hide">
             <div id="question">Question</div>
             <div id="answer-buttons" class="btn-grid">
-                <button class="btn">Answer 1</button>
-                <button class="btn">Answer 2</button>
-                <button class="btn">Answer 3</button>
-                <button class="btn">Answer 4</button>
+                <button id="wrong" class="btn">Answer 1</button>
+                <button id="wrong" class="btn">Answer 2</button>
+                <button id="wrong" class="btn">Answer 3</button>
+                <button id="wrong" class="btn">Answer 4</button>
             </div>
         </div>
         <div class="controls">
             <button id="start-btn" class="start-btn btn">Start</button>
             <button id="next-btn" class="next-btn btn hide">Next</button>
+            <!-- <button id="scores-btn" class="scores-btn btn hide">See Score</button> -->
         </div>
-        </card>
 
-        <script src="script.js"></script>
+        <div id="end-page" class="hide">
+            <h4>Game Over</h4>
+            <input id="initials" type="text"/>
+            <button id="submit">Submit</button>
+        </div> 
+        <div id="game-over" class="hide">
+            <h4>Time is up</h4>
+            <button id="retry">Retry?</button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
