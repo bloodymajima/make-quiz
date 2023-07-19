@@ -22,6 +22,10 @@ const retryButton = document.getElementById('retry')
 
 const scoreButton = document.getElementById('scores-btn')
 
+const userInitials = initials.value
+
+const userTime = JSON.parse (localStorage.getItem('Highscores')) || []
+
 const questions = [
     {
         question: 'Inside which HTML element do we put the JavaScript?',
@@ -187,10 +191,23 @@ function clearStatusClass(element) {
 }
 
 function saveScores() {
-    const userInitials = initials.value
-    //  const initialList = document.querySelector('ul')
-    const highScores = JSON.parse (localStorage.getItem('Highscores')) || []
-    highScores.push({initials: userInitials, score: timeLeft})
-    localStorage.setItem('Highscores', JSON.stringify(highScores))
-    console.log(userInitials);
+    userTime.push({initials: userInitials, score: timeLeft})
+    localStorage.setItem('Highscores', JSON.stringify(userTime))
+    // console.log(userInitials);
 }
+
+function highscores() {
+    const highScoresEl = document.getElementById('highscores')
+    const highscoresLi = JSON.parse (localStorage.getItem ('Highscores')) || []
+
+    let i;
+    for (i = 0; i < highscoresLi.length; i++) {
+        highscoresLi[i] + "<li>";
+      }
+
+      highScoresEl.textContent = highscoresLi[i].userInitials + ":" + highscoresLi[i].userTime;
+
+      highscoresLi.append(highScoresEl)
+}
+
+highscores()
