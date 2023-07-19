@@ -193,16 +193,21 @@ function clearStatusClass(element) {
 function saveScores() {
     userTime.push({initials: userInitials, score: timeLeft})
     localStorage.setItem('Highscores', JSON.stringify(userTime))
-    console.log(userInitials);
+    // console.log(userInitials);
 }
 
 function highscores() {
     const highScoresEl = document.getElementById('highscores')
     const highscoresLi = JSON.parse (localStorage.getItem ('Highscores')) || []
 
-    for (let i = 0; i < highscoresLi.length; i++) {
-        text += highscoresLi[i] + "<li>";
+    let i;
+    for (i = 0; i < highscoresLi.length; i++) {
+        highscoresLi[i] + "<li>";
       }
 
       highScoresEl.textContent = highscoresLi[i].userInitials + ":" + highscoresLi[i].userTime;
+
+      highscoresLi.append(highScoresEl)
 }
+
+highscores()
