@@ -10,13 +10,13 @@ const answerButtonsElement = document.getElementById('answer-buttons')
 
 const timerEl = document.getElementById('js-timer');
 
-const endPage = document.getElementById('end-page')
+const scoresPage = document.getElementById('scores-page')
 
 const initials = document.getElementById('initials')
 
 const submit = document.getElementById('submit')
 
-const gameOver = document.getElementById('game-over')
+const gameOverScreen = document.getElementById('game-over')
 
 const retryButton = document.getElementById('retry')
 
@@ -26,6 +26,7 @@ const userInitials = initials.value
 
 const userTime = JSON.parse (localStorage.getItem('Highscores')) || []
 
+// Five questions to answer
 const questions = [
     {
         question: 'Inside which HTML element do we put the JavaScript?',
@@ -79,19 +80,26 @@ const questions = [
     }
 ]
 
+// How much time to countdown from
 let timeLeft = 75;
 
 let shuffledQuestions, currentQuestionIndex, timeInterval
 
+// When start button is pressed, the game is started aka startGame function runs
 startButton.addEventListener('click', startGame)
 
+// When you click next, the next question is set
 nextButton.addEventListener('click', () => {
     currentQuestionIndex++
     setNextQuestion()
 })
 
+// When submit button is pressed, the score is saved to local storage 
 submit.addEventListener('click', saveScores)
 
+// When timer starts, and timer is above 1, plural
+// Timer === 1, singular
+// When timer reaches 0, the timer stops, is hidden, and says alert 
 function countdown() {
     timeInterval = setInterval(function () {
         console.log(timeLeft)
@@ -102,25 +110,14 @@ function countdown() {
             timerEl.textContent = timeLeft + ' second remaining';
             timeLeft--;
         } else {
-        //    saveScores() (
-        //     clearInterval(countdown)
-        //    ) 
-        //     trying to stop clock when quiz is over
-            
-        }    //else {
-            //timerEl.textContent = '';
-            //clearInterval(timeInterval);
-        //}
-        //  this stops clock when timer reaches 0
+        (timeLeft < 0) 
+            clearInterval(timeInterval)
+            timerEl.classList.add('hide')
+            gameOver()
+        }
     }, 1000); 
 }
-
-document.getElementById('wrong').addEventListener('click', function(){
-    sec -= 5;
-    // timerEl.innerHTML="00:"+sec;
-});
-
-
+// Starts the game, hides start screen, displays questions
 function startGame() {
     startButton.classList.add('hide')
     shuffledQuestions = questions.sort(() => Math.random() - .5)
@@ -129,13 +126,13 @@ function startGame() {
     setNextQuestion()
     countdown()
 }
-
+// Shuffles questions each time quiz is played
 function setNextQuestion() {
     resetState()
     showQuestion(shuffledQuestions[currentQuestionIndex])
 
 }
-
+// 
 function showQuestion(question) {
     questionElement.innerText = question.question
     question.answers.forEach(answer => {
@@ -149,7 +146,7 @@ function showQuestion(question) {
         answerButtonsElement.appendChild(button)
     })
 }
-
+// Allows quiz to continue to next question after pressing next
 function resetState() {
     clearStatusClass(document.body)
     nextButton.classList.add('hide')
@@ -166,16 +163,16 @@ function selectAnswer(e) {
         setStatusClass(button, button.dataset.correct)
     })
 
-    
+    //
     if (shuffledQuestions.length > currentQuestionIndex + 1) {
         nextButton.classList.remove('hide')
     } else {
             questionContainerElement.classList.add('hide')
-            endPage.classList.remove('hide')
+            scoresPage.classList.remove('hide')
             timerEl
     }
 }
-
+// If selecting correct answer, green; else red
 function setStatusClass(element, correct) {
     clearStatusClass(element)
     if (correct) {
@@ -189,40 +186,35 @@ function clearStatusClass(element) {
     element.classList.remove('correct')
     element.classList.remove('wrong')
 }
-
+// Allows scores to be saved into local storage to be accessed for highscore list
+console.log('testing1', userInitials)
 function saveScores() {
+    console.log('testing2',userInitials)
     userTime.push({initials: userInitials, score: timeLeft})
     localStorage.setItem('Highscores', JSON.stringify(userTime))
-    console.log(userInitials);
+    // console.log(userInitials);
 }
-
-function highscores() {
-    if (localStorage.getItem('Highscores')) {
-        const highScoresEl = document.getElementById('highscores')
-        const highscoresLi = JSON.parse(localStorage.getItem('Highscores'))
-        let i;
-        for (i = 0; i < highscoresLi.length; i++) {
-            highscoresLi[i] + "<li>";
-        }
-
-        console.log(highscoresLi)
-
-        highScoresEl.textContent = highscoresLi[i].userInitials + ":" + highscoresLi[i].userTime;
-
-        highscoresLi.append(highScoresEl)
-    }
-}
-
+// Accessing highscores and formatting so it's initials : time
 // function highscores() {
-//     const highScoresEl = document.getElementById('highscores')
-//     const highscoresLi = JSON.parse (localStorage.getItem ('Highscores')) || []
-//     // console.log(highscoresLi)
-//     let i;
-//     for (i = 0; i < highscoresLi.length; i++) {
-//         highscoresLi[i] + "<li>";
-//       }
+//     if (localStorage.getItem('Highscores')) {
+//         const highScoresEl = document.getElementById('highscores')
+//         const highscoresLi = JSON.parse(localStorage.getItem('Highscores'))
+//         let i;
+//         for (i = 0; i < highscoresLi.length; i++) {
+//             highscoresLi[i] + "<li>";
+//         }
 
-//       highScoresEl.textContent = highscoresLi[i].userInitials + ":" + highscoresLi[i].userTime;
+//         console.log(highscoresLi)
 
-//       highscoresLi.append(highScoresEl)
+//         highScoresEl.textContent = highscoresLi[i].userInitials + ":" + highscoresLi[i].userTime;
+
+//         highscoresLi.append(highScoresEl)
+//     }
 // }
+
+function gameOver() {
+    if (timeLeft === 0) 
+    questionContainerElement.classList.add('hide')
+    gameOverScreen.classList.remove('hide')
+
+}
