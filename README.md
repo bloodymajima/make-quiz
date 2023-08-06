@@ -27,3 +27,6 @@ THEN I can save my initials and score
 [w3 schools](https://www.w3schools.com/jsref/jsref_push.asp)
 [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/API/Element/append)
 [w3 schools](https://www.w3schools.com/js/js_loop_for.asp)
+[w3 schools](https://www.w3schools.com/js/js_htmldom_nodes.asp)
+[mdn web docs](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement)
+[javascript tutorial](https://www.javascripttutorial.net/javascript-dom/javascript-append/)
