@@ -22,8 +22,6 @@ const retryButton = document.getElementById('retry')
 
 const scoreButton = document.getElementById('scores-btn')
 
-const userInitials = initials.value
-
 const userTime = JSON.parse (localStorage.getItem('Highscores')) || []
 
 // Five questions to answer
@@ -169,7 +167,6 @@ function selectAnswer(e) {
     } else {
             questionContainerElement.classList.add('hide')
             scoresPage.classList.remove('hide')
-            timerEl
     }
 }
 // If selecting correct answer, green; else red
@@ -179,6 +176,8 @@ function setStatusClass(element, correct) {
         element.classList.add('correct')
     } else {
         element.classList.add('wrong')
+        // If answer is incorrect, -5 on time
+        timeLeft -= 1
     }
 }
 
@@ -186,13 +185,29 @@ function clearStatusClass(element) {
     element.classList.remove('correct')
     element.classList.remove('wrong')
 }
+
+let userInitials = initials.value;
 // Allows scores to be saved into local storage to be accessed for highscore list
-console.log('testing1', userInitials)
 function saveScores() {
-    console.log('testing2',userInitials)
+    // let userInitials = initials.value;
     userTime.push({initials: userInitials, score: timeLeft})
     localStorage.setItem('Highscores', JSON.stringify(userTime))
-    // console.log(userInitials);
+    console.log(userInitials);
+
+    if (localStorage.getItem('Highscores')) {
+        const highScoresEl = document.getElementById('highscores')
+        const highscoresLi = JSON.parse(localStorage.getItem('Highscores'))
+        let i;
+        for (i = 0; i < highscoresLi.length; i++) {
+            highscoresLi[i] + "<li>";
+        }
+
+        console.log(highscoresLi)
+
+        highScoresEl.textContent = highscoresLi[i].userInitials + ":" + highscoresLi[i].userTime;
+
+        highscoresLi.append(highScoresEl)
+    }
 }
 // Accessing highscores and formatting so it's initials : time
 // function highscores() {
