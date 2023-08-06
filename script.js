@@ -1,27 +1,15 @@
 const startButton = document.getElementById('start-btn')
-
 const nextButton = document.getElementById('next-btn')
-
 const questionContainerElement = document.getElementById('questions-container')
-
 const questionElement = document.getElementById('question')
-
 const answerButtonsElement = document.getElementById('answer-buttons')
-
 const timerEl = document.getElementById('js-timer');
-
 const scoresPage = document.getElementById('scores-page')
-
 const initials = document.getElementById('initials')
-
 const submit = document.getElementById('submit')
-
+const list = document.getElementById('list')
 const gameOverScreen = document.getElementById('game-over')
-
 const retryButton = document.getElementById('retry')
-
-const scoreButton = document.getElementById('scores-btn')
-
 const userTime = JSON.parse (localStorage.getItem('Highscores')) || []
 
 // Five questions to answer
@@ -80,9 +68,7 @@ const questions = [
 
 // How much time to countdown from
 let timeLeft = 75;
-
 let shuffledQuestions, currentQuestionIndex, timeInterval
-
 // When start button is pressed, the game is started aka startGame function runs
 startButton.addEventListener('click', startGame)
 
@@ -93,7 +79,7 @@ nextButton.addEventListener('click', () => {
 })
 
 // When submit button is pressed, the score is saved to local storage 
-submit.addEventListener('click', saveScores)
+submit.addEventListener('click', saveScores, )
 
 // When timer starts, and timer is above 1, plural
 // Timer === 1, singular
@@ -130,7 +116,7 @@ function setNextQuestion() {
     showQuestion(shuffledQuestions[currentQuestionIndex])
 
 }
-// 
+
 function showQuestion(question) {
     questionElement.innerText = question.question
     question.answers.forEach(answer => {
@@ -181,51 +167,38 @@ function setStatusClass(element, correct) {
     }
 }
 
+// New question, screen goes back to neutral blue
 function clearStatusClass(element) {
     element.classList.remove('correct')
     element.classList.remove('wrong')
 }
 
-let userInitials = initials.value;
+
 // Allows scores to be saved into local storage to be accessed for highscore list
 function saveScores() {
-    // let userInitials = initials.value;
+    let userInitials = initials.value;
     userTime.push({initials: userInitials, score: timeLeft})
     localStorage.setItem('Highscores', JSON.stringify(userTime))
-    console.log(userInitials);
+    // console.log(userInitials);
 
     if (localStorage.getItem('Highscores')) {
         const highScoresEl = document.getElementById('highscores')
         const highscoresLi = JSON.parse(localStorage.getItem('Highscores'))
-        let i;
-        for (i = 0; i < highscoresLi.length; i++) {
-            highscoresLi[i] + "<li>";
+        for (let i = 0; i < highscoresLi.length; i++) {
+            highScoresEl.textContent = highscoresLi[i].userInitials + ":" + highscoresLi[i].userTime;
+            console.log(highscoresLi[i])
+            console.log(highscoresLi[i].initials, highscoresLi[i].score)
+
+            // let list = document.getElementById('list')
+            // list.append(highscoresLi[i])
         }
-
-        console.log(highscoresLi)
-
-        highScoresEl.textContent = highscoresLi[i].userInitials + ":" + highscoresLi[i].userTime;
-
-        highscoresLi.append(highScoresEl)
     }
 }
-// Accessing highscores and formatting so it's initials : time
-// function highscores() {
-//     if (localStorage.getItem('Highscores')) {
-//         const highScoresEl = document.getElementById('highscores')
-//         const highscoresLi = JSON.parse(localStorage.getItem('Highscores'))
-//         let i;
-//         for (i = 0; i < highscoresLi.length; i++) {
-//             highscoresLi[i] + "<li>";
-//         }
 
-//         console.log(highscoresLi)
-
-//         highScoresEl.textContent = highscoresLi[i].userInitials + ":" + highscoresLi[i].userTime;
-
-//         highscoresLi.append(highScoresEl)
-//     }
-// }
+// let list = document.getElementById('list')
+// list.append(highscoresLi)
+// let li = document.createElement('li')
+// highscoresEl.append(li)
 
 function gameOver() {
     if (timeLeft === 0) 
