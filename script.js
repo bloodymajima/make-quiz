@@ -70,7 +70,9 @@ const questions = [
 let timeLeft = 75;
 let shuffledQuestions, currentQuestionIndex, timeInterval
 // When start button is pressed, the game is started aka startGame function runs
+function startBtn() {
 startButton.addEventListener('click', startGame)
+}
 
 // When you click next, the next question is set
 nextButton.addEventListener('click', () => {
@@ -179,30 +181,27 @@ function saveScores() {
     let userInitials = initials.value;
     userTime.push({initials: userInitials, score: timeLeft})
     localStorage.setItem('Highscores', JSON.stringify(userTime))
-    // console.log(userInitials);
 
     if (localStorage.getItem('Highscores')) {
         const highScoresEl = document.getElementById('highscores')
+        highScoresEl.classList.remove('hide')
         const highscoresLi = JSON.parse(localStorage.getItem('Highscores'))
         for (let i = 0; i < highscoresLi.length; i++) {
-            highScoresEl.textContent = highscoresLi[i].userInitials + ":" + highscoresLi[i].userTime;
-            console.log(highscoresLi[i])
-            console.log(highscoresLi[i].initials, highscoresLi[i].score)
-
-            // let list = document.getElementById('list')
-            // list.append(highscoresLi[i])
+            let liEl = document.createElement('li');
+            liEl.textContent = highscoresLi[i].initials + ":" + highscoresLi[i].score;
+            console.log(highscoresLi[i]);
+            console.log(highscoresLi[i].initials, highscoresLi[i].score);
+            highScoresEl.append(liEl);
         }
     }
 }
 
-// let list = document.getElementById('list')
-// list.append(highscoresLi)
-// let li = document.createElement('li')
-// highscoresEl.append(li)
-
 function gameOver() {
     if (timeLeft === 0) 
     questionContainerElement.classList.add('hide')
+    scoresPage.classList.add('hide')
     gameOverScreen.classList.remove('hide')
-
 }
+
+retryButton.addEventListener('click', startBtn());
+
