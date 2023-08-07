@@ -141,15 +141,21 @@ function resetState() {
     }
 }
 
+// Adding values to answers
 function selectAnswer(e) {
     const selectedButton = e.target
     const correct = selectedButton.dataset.correct
+    const wrong = selectedButton.dataset.wrong
+    if (wrong) {
+        // If  selected answer is incorrect, -5 on time
+        timeLeft -= 10
+    }
     setStatusClass(document.body, correct)
     Array.from(answerButtonsElement.children).forEach(button => {
         setStatusClass(button, button.dataset.correct)
     })
 
-    //
+    // If there are more questions, show Next button, else bring user to highscores page
     if (shuffledQuestions.length > currentQuestionIndex + 1) {
         nextButton.classList.remove('hide')
     } else {
@@ -164,9 +170,7 @@ function setStatusClass(element, correct) {
         element.classList.add('correct')
     } else {
         element.classList.add('wrong')
-        // If answer is incorrect, -5 on time
-        timeLeft -= 1
-    }
+    }  
 }
 
 // New question, screen goes back to neutral blue
