@@ -68,7 +68,7 @@ const questions = [
 ]
 
 // How much time to countdown from
-let timeLeft = 5;
+let timeLeft = 55;
 let shuffledQuestions, currentQuestionIndex, timeInterval
 // When start button is pressed, the game is started aka startGame function runs
 function startBtn() {

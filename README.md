@@ -33,3 +33,8 @@ This is a quiz to judge how much you know about JavaScript! I built this project
 [w3 schools](https://www.w3schools.com/js/js_htmldom_nodes.asp)
 [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement)
 [javascript tutorial](https://www.javascripttutorial.net/javascript-dom/javascript-append/)
+
+Also received help from tutors, and AskBCS!
+
+## Link to Deployed website
+[website](https://bloodymajima.github.io/make-quiz/)
