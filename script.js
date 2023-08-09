@@ -1,3 +1,4 @@
+const homepage = document.getElementById('homepage')
 const startButton = document.getElementById('start-btn')
 const nextButton = document.getElementById('next-btn')
 const questionContainerElement = document.getElementById('questions-container')
@@ -67,9 +68,10 @@ const questions = [
 ]
 
 // How much time to countdown from
-let timeLeft = 75;
+let timeLeft = 5;
 let shuffledQuestions, currentQuestionIndex, timeInterval
 // When start button is pressed, the game is started aka startGame function runs
+startButton.classList.remove('hide')
 function startBtn() {
 startButton.addEventListener('click', startGame)
 }
@@ -81,7 +83,7 @@ nextButton.addEventListener('click', () => {
 })
 
 // When submit button is pressed, the score is saved to local storage 
-submit.addEventListener('click', saveScores, )
+submit.addEventListener('click', saveScores)
 
 // When timer starts, and timer is above 1, plural
 // Timer === 1, singular
@@ -96,7 +98,6 @@ function countdown() {
             timerEl.textContent = timeLeft + ' second remaining';
             timeLeft--;
         } else {
-        (timeLeft < 0) 
             clearInterval(timeInterval)
             timerEl.classList.add('hide')
             gameOver()
@@ -105,7 +106,7 @@ function countdown() {
 }
 // Starts the game, hides start screen, displays questions
 function startGame() {
-    startButton.classList.add('hide')
+    // startButton.classList.add('hide')
     shuffledQuestions = questions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
     questionContainerElement.classList.remove('hide')
@@ -160,6 +161,7 @@ function selectAnswer(e) {
     } else {
             questionContainerElement.classList.add('hide')
             scoresPage.classList.remove('hide')
+            clearInterval(timeInterval)
     }
 }
 // If selecting correct answer, green; else red
@@ -200,11 +202,14 @@ function saveScores() {
 }
 
 function gameOver() {
-    if (timeLeft === 0) 
+    if (timeLeft === 0)
     questionContainerElement.classList.add('hide')
     scoresPage.classList.add('hide')
     gameOverScreen.classList.remove('hide')
 }
 
-retryButton.addEventListener('click', startBtn());
+function retry() {
+retryButton.addEventListener('click');
+startButton.classList.remove('hide')
+}
 
