@@ -145,10 +145,9 @@ function resetState() {
 function selectAnswer(e) {
     const selectedButton = e.target
     const correct = selectedButton.dataset.correct
-    const wrong = selectedButton.dataset.wrong
-    if (wrong) {
+    if (!correct) {
         // If  selected answer is incorrect, -5 on time
-        timeLeft -= 10
+        timeLeft -= 5
     }
     setStatusClass(document.body, correct)
     Array.from(answerButtonsElement.children).forEach(button => {
