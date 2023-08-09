@@ -40,4 +40,4 @@ Also received help from tutors, and AskBCS!
 [website](https://bloodymajima.github.io/make-quiz/)
 
 ## Screenshot 
-![Screenshot](Screenshot 2023-08-09 123807.png)
+![screenshot](screenshot.png)
