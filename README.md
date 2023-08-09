@@ -19,6 +19,9 @@ THEN the game is over
 WHEN the game is over
 THEN I can save my initials and score
 
+## Description
+This is a quiz to judge how much you know about JavaScript! I built this project to test the users' knowledge about JS. I learned more about functions and for loops, how to store and access data in local storage, and how to toggle between screens using JavaScript. I also learned how to create elements and classes using only JavaScript.
+
 ## Resources 
 [youtube](https://www.youtube.com/watch?v=riDzcEQbX6k&t=910s)
 [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/CSS/grid)

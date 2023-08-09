@@ -71,10 +71,10 @@ const questions = [
 let timeLeft = 5;
 let shuffledQuestions, currentQuestionIndex, timeInterval
 // When start button is pressed, the game is started aka startGame function runs
-startButton.classList.remove('hide')
 function startBtn() {
 startButton.addEventListener('click', startGame)
 }
+startBtn()
 
 // When you click next, the next question is set
 nextButton.addEventListener('click', () => {
@@ -106,7 +106,7 @@ function countdown() {
 }
 // Starts the game, hides start screen, displays questions
 function startGame() {
-    // startButton.classList.add('hide')
+    startButton.classList.add('hide')
     shuffledQuestions = questions.sort(() => Math.random() - .5)
     currentQuestionIndex = 0
     questionContainerElement.classList.remove('hide')
@@ -202,14 +202,18 @@ function saveScores() {
 }
 
 function gameOver() {
-    if (timeLeft === 0)
+    if (timeLeft >= 0)
     questionContainerElement.classList.add('hide')
+    nextButton.classList.add('hide')
     scoresPage.classList.add('hide')
     gameOverScreen.classList.remove('hide')
 }
 
-function retry() {
-retryButton.addEventListener('click');
-startButton.classList.remove('hide')
-}
+retryButton.addEventListener('click',function(){
+    startButton.classList.remove('hide')
+    retryButton.classList.add('hide')
+    timeLeft = 75
+    timerEl.classList.remove('hide')
+    gameOverScreen.classList.add('hide')
+})
 
